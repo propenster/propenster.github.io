@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-explicit-any
 import { Post } from "./main.ts";
 
-const site_url = "https://matklad.github.io";
+const site_url = "https://propenster.github.io";
 
 export const base = (
   { content, src, title, path, description, extra_css }: {
@@ -24,7 +24,7 @@ export const base = (
   <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="${site_url}${path}">
-  <link rel="alternate" type="application/rss+xml" title="matklad" href="${site_url}/feed.xml">
+  <link rel="alternate" type="application/rss+xml" title="propenster" href="${site_url}/feed.xml">
   <style>
   @font-face {
     font-family: 'Open Sans'; src: url('/css/OpenSans-300-Normal.woff2') format('woff2');
@@ -84,10 +84,10 @@ export const base = (
 <body>
   <header>
     <nav>
-      <a class="title" href="/">matklad</a>
+      <a class="title" href="/">propenster</a>
       <a href="/about.html">About</a>
       <a href="/resume.html">Resume</a>
-      <a href="/links.html">Links</a>
+      <!--<a href="/links.html">Links</a>-->
     </nav>
   </header>
 
@@ -97,7 +97,7 @@ export const base = (
 
   <footer class="site-footer">
     <p>
-      <a href="https://github.com/matklad/matklad.github.io/edit/master${src}">
+      <a href="https://github.com/propenster/propenster.github.io/edit/master${src}">
         <svg class="icon"><use href="/assets/icons.svg#edit"/></svg>
         Fix typo
       </a>
@@ -105,13 +105,13 @@ export const base = (
         <svg class="icon"><use href="/assets/icons.svg#rss"/></svg>
         Subscribe
       </a>
-      <a href="mailto:aleksey.kladov+blog@gmail.com">
+      <a href="mailto:faitholusegun60@gmail.com">
         <svg class="icon"><use href="/assets/icons.svg#email"/></svg>
         Get in touch
       </a>
-      <a href="https://github.com/matklad">
+      <a href="https://github.com/propenster">
         <svg class="icon"><use href="/assets/icons.svg#github"/></svg>
-        matklad
+        propenster
       </a>
     </p>
   </footer>
@@ -120,12 +120,12 @@ export const base = (
 </html>
 `;
 
-const blurb = "Yet another programming blog by Alex Kladov aka matklad.";
+const blurb = "portfolio plus programming blog by Faith Olusegun aka propenster.";
 
 export function page(name: string, content: HtmlString) {
   return base({
     path: `/${name}`,
-    title: "matklad",
+    title: "propenster",
     description: blurb,
     src: `/content/${name}.dj`,
     extra_css: name === "resume" ? "resume.css" : undefined,
@@ -143,7 +143,7 @@ export const post_list = (posts: Post[]): HtmlString => {
 
   return base({
     path: "",
-    title: "matklad",
+    title: "propenster",
     description: blurb,
     src: "/src/templates.ts",
     content: html`<ul class="post-list">${list_items}</ul>`,
@@ -186,9 +186,9 @@ export const feed = (posts: Post[]): HtmlString => {
 <link href="${site_url}" rel="alternate" type="text/html"/>
 <updated>${new Date().toISOString()}</updated>
 <id>${site_url}/feed.xml</id>
-<title type="html">matklad</title>
-<subtitle>Yet another programming blog by Alex Kladov aka matklad.</subtitle>
-<author><name>Alex Kladov</name></author>
+<title type="html">propenster</title>
+<subtitle>portfolio plus programming blog by Faith Olusegun aka propenster.</subtitle>
+<author><name>Faith Olusegun</name></author>
 ${entries}
 </feed>
 `;
@@ -202,7 +202,7 @@ export const feed_entry = (post: Post): HtmlString => {
 <published>${yyyy_mm_dd(post.date)}T00:00:00+00:00</published>
 <updated>${yyyy_mm_dd(post.date)}T00:00:00+00:00</updated>
 <id>${site_url}${post.path.replace(".html", "")}</id>
-<author><name>Alex Kladov</name></author>
+<author><name>Faith Olusegun</name></author>
 <summary type="html"><![CDATA[${post.summary}]]></summary>
 <content type="html" xml:base="${site_url}${post.path}"><![CDATA[${post.content}]]></content>
 </entry>
