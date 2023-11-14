@@ -2,6 +2,8 @@
 
 Welcome to my resume!
 
+It has two parts, my [Professional Experience](#Professional-Experience) and [Open-Source Contributions and Projects](#Open-Source-Contributions-and-Projects)
+
 The resume is available as [.html][resume.html] and [.pdf][resume.pdf].
 
 {.page-break}
@@ -10,15 +12,15 @@ The resume is available as [.html][resume.html] and [.pdf][resume.pdf].
 I am a biological scientist because I study and research on bioinformatics, genomics and computational biology.
 Meaning I hold a BSc in some biological science degree but also I am a programmer.
 
-I am a programmer because 
-I like writing code just for the sake of it.
+I am a programmer because I like writing code just for the sake of it.
 
-I write code in C#, Rust, and python. I can also whip up some perl scripts whenever I'm feeling like it. 
+I write code in C#, Rust, TypeScript and python. I can also whip up some perl scripts whenever I'm feeling like it. 
 
 I build systems and I contribute to several open-source projects.
 
 I love teaching!
-See, for example, my YouTube channel where I make programming and software development tutorials ([YouTube][propenster-yt]), a series of videos about rust-analyzer ([YouTube][ra-yt]), or [the article about Pratt parsers][pratt].
+
+See, for example, my YouTube channel where I make programming and software development tutorials ([YouTube][propenster-yt])
 
 Oh, and I love writing :-)
 
@@ -43,10 +45,8 @@ Oh, and I love writing :-)
 
 ## Core Competencies
 
-- Building complex systems software from nothing
-- Growing open source communities
-- Implementing compilers, IDEs, build tools
-- Rust mastery
+- Building complex software solutions from nothing
+- Rust and C# mastery
 
 ## Education
 
@@ -128,7 +128,6 @@ management system serving front desk officers, an SME account opening portal ser
 businesses, and Azure API Management and delegated portals supporting the bank's flagship open API 
 product.
 
-
 ## Open-Source Contributions and Projects 
 
 ### File Query Language (FQL)
@@ -136,40 +135,40 @@ product.
 *Overview:* FQL (File Query Language) is a simple and powerful file querying language designed to 
 help you efficiently search and extract information from text files. Whether you need to analyze log 
 files, parse JSON, or extract specific content from text files, FQL provides a versatile set of commands 
-to simplify the process.
-*Tools:* Rust, VSCode, git.
-*Role:* Author and core maintainer
-*Link:* https://github.com/propenster/fq
+to simplify the process.\
+*Tools:* Rust, VSCode, git. \
+*Role:* Author and core maintainer \
+*Link:* <https://github.com/propenster/fql>
 
 ### PipenGeneX
 
 *Overview:* pipengenex is a powerful framework designed for creating and executing Bioinformatic 
 pipeline workflows. It includes a Command-Line Utility (CLI) tool for effortlessly running pipeline workflows 
 and tasks defined through JSON workflow definitions. Some notable features of pipengenex include task 
-parallelization and flexible workflow configuration.
-*Tools:* Rust, C#, VSCode, git, Perl.
-*Role:* Author and core maintainer
-*Link:* https://github.com/propenster/pipengenex
+parallelization and flexible workflow configuration.\
+*Tools:* Rust, C#, VSCode, git, Perl.\
+*Role:* Author and core maintainer \
+*Link:* <https://github.com/propenster/pipengenex>
 
 ### ERVCaller-rs
 
 *Overview:* ERVCaller-rs is a rust port of the popular tool designed to accurately detect and genotype 
 non-reference unfixed endogenous retroviruses (ERVs) and other transposable elements (TEs) in the 
 human genome using next-generation sequencing (NGS) data. The original ERVCaller package was 
-written in perl. 
-*Tools:* Rust, VSCode, git, Perl.
-*Role:* Author and core maintainer
-*Link(s):* https://github.com/xunchen85/ERVcaller https://github.com/propenster/ERVCaller-rs
+written in perl. \
+*Tools:* Rust, VSCode, git, Perl. \
+*Role:* Author and core maintainer \
+*Link(s):* <https://github.com/xunchen85/ERVcaller> <https://github.com/propenster/ERVCaller-rs>
 
 ### BioBencher
 
 *Overview:* This is a tool that benchmarks performance and CPU footprint bioinformatics and genomic 
 analysis tools particularly MSA, phyllo tools using our base debigenic genomic and bioinformatic analysis 
-pipeline.
-*Tools:* C#, docker, git, debigenic, BEDTools, BLAST, Clustalw2, Phylip, HMMER, MUMER, QuEST, VELVET.
-*Role:* Author and core maintainer
-*Link(s):* https://github.com/propenster/biobencher
-https://hub.docker.com/repository/docker/propenster/debigenic
+pipeline.\
+*Tools:* C#, Rust, docker, git, debigenic, BEDTools, BLAST, Clustalw2, Phylip, HMMER, MUMER, QuEST, VELVET. \
+*Role:* Author and core maintainer \
+*Link(s):* <https://github.com/propenster/biobencher>
+<https://hub.docker.com/repository/docker/propenster/debigenic>
 
 ### debigenic
 
@@ -180,75 +179,76 @@ researcher anywhere in the world. With debigenic, you do no not need to carry an
 computer anywhere, just find any PC or laptop that could run docker and you have a whole virtual 
 machine (container) that has everything you need for bioinformatics at least almost every tool you 
 might need. It is like you could carry your bioinformatics lab everywhere and in fact share you lab with 
-anyone you want irrespective of where they are.
-*Tools:* docker, linux bash shell, git.
-*Role:* Author and core maintainer
-*Link:* https://hub.docker.com/repository/docker/propenster/debigenic/general
+anyone you want irrespective of where they are.\
+*Tools:* docker, linux bash shell, git.\
+*Role:* Author and core maintainer \
+*Link:* <https://hub.docker.com/repository/docker/propenster/debigenic/general>
 
 ### Clash
 
 *Overview:* is a simple to use, efficient, and full-featured Command Line Argument Parser library for C# 
-.NET. You can use Clash in your CLI applications to parse CommandLine Arguments to C# objects.
-*Tools:* C#, Visual Studio, git
-*Role:* Author and Core Maintainer
-*Link:* https://github.com/propenster/Clash
+.NET. You can use Clash in your CLI applications to parse CommandLine Arguments to C# objects.\
+*Tools:* C#, Visual Studio, git \
+*Role:* Author and Core Maintainer \
+*Link:* <https://github.com/propenster/Clash>
 
 ### SimpleHTMLParser
 
 *Overview:* SimpleHTMLParser is a simple to use, efficient, and full-featured HTML Document Parser for C#. 
-You can parse an HTML document and retrieve any element(s) in it.
-*Tools:* C#, Visual Studio, git
-*Role:* Author and core maintainer
-*Link:* https://github.com/propenster/simplehtmlparser
+You can parse an HTML document and retrieve any element(s) in it.\
+*Tools:* C#, Visual Studio, git \
+*Role:* Author and core maintainer \
+*Link:* <https://github.com/propenster/simplehtmlparser>
 
 ### Veal
 
 *Overview:* I’m creating my own web development framework or microframework. It is meant to be 
 faster, simpler and much easier to run anywhere than Microsoft’s ASP.NET Core. I call it a lightweight 
-web development framework written in 100% C#.
-*Tools:* C#, Visual Studio, git
-*Role:* Author and core maintainer
-*Link:* https://github.com/propenster/veal
+web development framework written in 100% C#.\
+*Tools:* C#, Visual Studio, git \
+*Role:* Author and core maintainer \
+*Link:* <https://github.com/propenster/veal>
 
 ### Selenium-rs
 
-*Overview:* `selenium-rs` is A rust client for the Selenium webdriver (WIP). 
-*Tools:* rust, cargo, rustfmt, git, selenium web driver.
-*Role:* Contributor
-*Link:* https://github.com/saresend/selenium-rs
+*Overview:* `selenium-rs` is A rust client for the Selenium webdriver (WIP). \
+*Tools:* rust, cargo, rustfmt, git, selenium web driver.\
+*Role:* Contributor \
+*Link:* <https://github.com/saresend/selenium-rs>
 
 ### llm-chain
 
 *Overview:* `llm-chain` is a powerful rust crate for building chains in large language models allowing you 
-to summarise text and complete complex tasks. 
-*Tools:* rust, cargo, rustfmt, git.
-*Role:* Contributor
-*Link:* https://github.com/sobelio/llm-chain
+to summarise text and complete complex tasks. \
+*Tools:* rust, cargo, rustfmt, git.\
+*Role:* Contributor \
+*Link:* <https://github.com/sobelio/llm-chain>
 
 ### Faker.NET
 
 *Overview:* I created and I am maintaining a NUGET package for .NET developers to generate 
-dummy/fake data for collections. 
-*Tools:* C#, Github markdown, .NET Standard, NUnit.
-*Role:* Author and core maintainer
-*Link:* https://github.com/propenster/Faker.Net
+dummy/fake data for collections. \
+*Tools:* C#, Github markdown, .NET Standard, xUnit.\
+*Role:* Author and core maintainer\
+*Link:* <https://github.com/propenster/Faker.Net>
 
 ### Sluggify-rs
 
-*Overview:* A simple slug or clean URL generator library for Rust.
-*Tools:* Rust, Github markdown, cargo, crates.io.
-*Role:* Author and core maintainer
-*Link:* https://github.com/propenster/sluggify-rs
+*Overview:* A simple slug or clean URL generator library for Rust.\
+*Tools:* Rust, Github markdown, cargo, crates.io.\
+*Role:* Author and core maintainer\
+*Link:* <https://github.com/propenster/sluggify-rs>
 
 ### RestSharp
 
-*Overview:* Simple REST and HTTP API Client for. NET.
-*Tools:* C#, Github markdown.
-*Role:* Contributor
-*Link:* https://github.com/restsharp/RestSharp
+*Overview:* Simple REST and HTTP API Client for. NET.\
+*Tools:* C#, markdown.\
+*Role:* Contributor \
+*Link:* <https://github.com/restsharp/RestSharp>
 
 ### llcc94
 
-*Overview:* Writing a compiler using Rust. 
-*Tools:* rustlang, cargo, git.
-*Role:* Contributor
+*Overview:* Writing a compiler using Rust. \
+*Tools:* rustlang, cargo, git.\
+*Role:* Contributor\
+*Link:* <https://github.com/propenster/llcc94>
