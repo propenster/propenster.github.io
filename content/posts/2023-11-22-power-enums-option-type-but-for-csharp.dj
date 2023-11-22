@@ -1,0 +1,155 @@
+# Power Enums Option type but for csharp
+
+
+Let's talk about [PowerEnums](https://github.com/propenster/powerenums). A new C# library that I started cooking yesterday.
+
+It's been over a year since I started writing Rust and I found it an intriguing language. Besides the promises of top-notch performance and fearless concurrency, I also found rust to be an easy-to-learn systems language for me. This is coming from me who had a bit of flirt with C while in the university.
+
+One of rust's main selling point for me is how clear and easy the type system is. You have a straightforward type system, generics, pattern matching (which I love so much) and traits. All of these I was able to learn in a bit of time and the ease at which I was able to pick up rust was surprising to me. 
+Rust for me is just like python but with extra invincibility of systems languages like C and C++. It's almost as powerful (if not as powerful) as C and C++ and it has plain old english-like syntax like python. Oh and rust's getting into both the windows and linux kernel already which is a W for me.
+
+Now to the main theme of this article, Option enum type in rust is an enum type in the rust standard library that gives us the idea of optional values. That is, value types can be seen in a basis of whether they are present or absent - present as in Some(T) or absent as in None. 
+This is in fact rust's intuitive way of prevent Null-Reference exceptions and allied problems in contrast to C# which I have been used to and written for over 7 years already. This means that Option in C# would make us have less of 'ObjectReferenceException: Object Reference Not Set to An Instance of an Object' - every C# developer has probably seen this countless number of times.
+
+In Rust, an Option<T> defines an optional type in which the enclosed generic type could be any data type from primitives to reference types. The Option<T> type in rust could be matched with pattern machine to create more elegant control flow. 
+It can be combined with other constructs like If-Let, Match and While let all of which allow for destructuring of the optional into Some(T).
+
+See below:
+
+**With match expression**
+
+```rust
+// Make `optional` of type `Option<i32>`
+let optional = Some(7);
+
+match optional {
+    Some(i) => { //see the declare 7 i32 destructed into i
+        println!("This is a really long string and `{:?}`", i);
+    },
+    _ => {},
+};
+
+```
+
+**With if-let**
+
+```rust
+let number = Some(7);
+
+// The `if let` construct reads: "if `let` destructures `number` into
+// `Some(i)`, evaluate the block (`{}`).
+if let Some(i) = number {
+    println!("Matched {:?}!", i);
+}
+
+//or
+if let Some(i) = number{
+    println!("Retrieved destructured number i32 successfully!");
+}else{
+    println!("number destructure failed. number is not present");
+}
+```
+
+**With while-let**
+
+```rust
+// Make `optional` of type `Option<i32>`
+let mut optional = Some(0);
+
+// This reads: "while `let` destructures `optional` into
+// `Some(i)`, evaluate the block (`{}`). Else `break`.
+while let Some(i) = optional {
+    if i > 9 {
+        println!("Greater than 9, quit!");
+        optional = None;
+    } else {
+        println!("`i` is `{:?}`. Try again.", i);
+        optional = Some(i + 1);
+    }
+}
+```
+
+### C# implementation
+
+The C# implementation that I've just made is quite similar, we have an Option<T> type which can enclose the value of interest into either of a Some(T) or None(T).
+I call it PowerEnums and it's already published to nuget.org as a .NET C# library.
+
+See the code references below:
+
+**Simple Option - Some<T>**
+
+```csharp
+int value = 50;
+var option = new Some<int>(value);
+Console.WriteLine(option?.ValueOrDefault());
+
+Assert.Equal(value, option?.ValueOrDefault());
+Assert.NotNull(option);
+Assert.IsType<Some<int>>(option);
+Assert.IsType<int>(option?.ValueOrDefault());
+```
+
+**Simple Option - None<T>**
+
+```csharp
+var noneReturningOption = new None<int>();
+Assert.NotNull(noneReturningOption);
+Assert.Equal(0, noneReturningOption?.ValueOrDefault());
+Assert.Equal(0, noneReturningOption?.Value);
+Assert.Equal(false, noneReturningOption?.IsSome());
+Assert.Equal(true, noneReturningOption?.IsNone());
+Assert.IsType<None<int>>(noneReturningOption);
+//it doesn't lose it's enclosed primitive type though it still came as None
+Assert.IsType<int>(noneReturningOption?.ValueOrDefault()); 
+Assert.IsAssignableFrom<int>(noneReturningOption?.ValueOrDefault()); 
+```
+
+**Option-returning methods Option<T>**
+
+```csharp
+private static Option<decimal> DecimalReturningOptionMethod()
+{
+decimal d = decimal.MaxValue;
+return new Some<decimal>(d);
+}
+
+private Option<Person> GetPerson_Some_Or_None()
+{
+var person = new Person { Name = "Willelm Rudenmalm", Age = 28 };
+return new Some<Person>(person) ?? new None<Person>();
+}
+```
+
+**Option<T>().ValueOrError() with error message**
+
+```csharp
+var option = new None<int>();
+Assert.Throws<Exception>(() => option.ValueOrError("Error could not retrieve item , item is null or default"));
+```
+
+**Option<T>().ValueOrError() with error callback**
+
+```csharp
+var option = new None<int>();
+Assert.Throws<MyCustomException>(() => option.ValueOrError(() => throw new MyCustomException("Error could not find item")));
+```
+
+**Check IsSome() or IsNone()**
+
+```csharp
+var option = new Some<double>(2.58);
+if(option.IsSome()){
+Console.WriteLine($"Option is Some and it's value is {option.ValueOrDefault()}");
+//OR destroy everything.
+//without saying, this throws a bomb (an Exception) if option is None<T>
+var valueOrMakeAMess = option.ValueOrError("This double is supposed to be here now I'm going to have to throw an exception"); 
+//OR pass an Exception callback with your own customer Exception
+//without saying, this throws a bomb (a YourMessyCustomException) if option is None<T>
+var valueOrMakeAMess = option.ValueOrError(() => throw new YourMessyCustomException("You must never not have this double")); 
+}else{
+Console.WriteLine("Option is None");
+}
+```
+
+
+
