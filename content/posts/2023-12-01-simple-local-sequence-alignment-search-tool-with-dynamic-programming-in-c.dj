@@ -1,0 +1,213 @@
+# Simple local sequence alignment search tool with dynamic programming in C 
+
+### Simple Local Sequence Alignment Search Tool (SLAST).
+
+Sequence alignment is fundamental to bioinformatics. In fact, one of the common tasks of a bioinformatician or an omics researcher is sequence alignemnt.
+
+Sequence alignment is used to identify similarities, homology, and functional relationships between proteins or genes in different organisms or species. By comparing sequences, we can infer evolutionary relationships and gain insights into the structure and function of biological molecules.
+
+During sequence alignment, the aim is to achieve the highest similarity score. Keep in mind that sequence alignment can have multiple correct solutions, and the outcome may vary based on the specific implementation and scoring parameters.
+
+I developed a C program for local sequence alignment using dynamic programming to find the optimal alignment.
+
+This program, called SLAST (Simple Local Alignment Search Tool), generates aligned sequences via dynamic programming. Keep in mind that this is just a simple implementation and does not include the sophisticated heuristics and optimizations of more sophisticated alignment tools like BLAST used in the bioinformatics and genomics community. A full BLAST implementation involves additional complexities such as seeding and extending, filtering, statistical analysis, and database searching.
+
+SLAST uses a dynamic programming 2-dimensional matrix that stores intermediate scores obtained during the computation of optimal alignments between two sequences. You can call it our scoring matrix.
+
+See the code below: 
+
+**Header - slast.h**
+
+```C
+
+/****************************************************************************
+* Filename: slast.h
+* Original Author: Faith E. Olusegun (propenster)
+* File Creation Date: December 2nd, 2023
+* Description: SLAST functions, definitions  - header
+* LICENSE: MIT
+*************************************************************************************/
+
+#pragma once
+#ifndef SLAST_H
+
+#define SLAST_H
+
+/// this could be customized
+#define MATCH_SCORE 2
+#define MISMATCH_SCORE -1
+#define GAP_PENALTY -1
+
+int max_of(int a, int b, int c);
+
+int calculateScore(char a, char b);
+void simpleLocalAlignment(char* seq1, char* seq2);
+
+
+
+#endif //SLAST_H#pragma once
+
+
+```
+
+**Core SLAST Implementation - slast.c**
+
+```C
+/****************************************************************************
+* Filename: slast.c
+* Original Author: Faith E. Olusegun (propenster)
+* File Creation Date: December 2nd, 2023
+* Description: SLAST functions, definitions and implementation details
+* LICENSE: MIT
+*************************************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "slast.h"
+
+/// @brief 
+/// @param a - 
+/// @param b 
+/// @param c 
+/// @return 
+///
+int max_of(int a, int b, int c) {
+    int max_of_ab = (a > b) ? a : b;
+    return (max_of_ab > c) ? max_of_ab : c;
+}
+
+/// @brief calculates match/alignment Score
+/// @param a first nucleotide (a) to be compared to another (b)
+/// @param b second nucleotide (b) to be compared with a
+/// @return match or mismatch score
+int calculateScore(char a, char b) {
+    return (a == b) ? MATCH_SCORE : MISMATCH_SCORE;
+}
+
+/// @brief performs the local alignment
+/// @param seq1 sequence 1
+/// @param seq2 sequence 2 or reference sequence
+void simpleLocalAlignment(char* seq1, char* seq2) {
+    size_t len1 = strlen(seq1);
+    size_t len2 = strlen(seq2);
+    //create our dp matrix and allocate memory for it...
+    //we will use it to store scores as we compute
+    int** dp = (int**)malloc((len1 + 1) * sizeof(int*));
+    for (size_t i = 0; i < len1; ++i) {
+        dp[i] = (int*)malloc((len2 + 1) * sizeof(int));
+    }
+
+    int maxScore = 0;
+    int endRow, endCol = 0;
+
+    //init alignment matrix
+    for (size_t row = 0; row < len1; ++row) {
+        for (size_t col = 0; col < len2; ++col) {
+            if (row == 0 || col == 0) {
+                
+                if (row <= len1 && col <= len2) {
+                    dp[row][col] = 0;
+                }
+                else {
+                    return 1;
+                }
+            }
+            else {
+                int match = dp[row - 1][col - 1] + calculateScore(seq1[row - 1], seq2[col - 1]);
+                int delete = dp[row - 1][col] + GAP_PENALTY;
+                int insert = dp[row][col - 1] + GAP_PENALTY;
+                dp[row][col] = max(match, delete, insert);
+
+                if (dp[row][col] > maxScore) {
+                    maxScore = dp[row][col];
+                    endRow = row;
+                    endCol = col;
+                }
+            }
+        }
+    }
+
+    //find && print new alignment
+    int i = endRow;
+    int j = endCol;
+    while (i > 0 && j > 0 && dp[i][j] != 0) {
+        int score = dp[i][j];
+        int diagonal = dp[i - 1][j - 1];
+        int left = dp[i][j - 1];
+        int up = dp[i - 1][j];
+
+        if (score == diagonal + calculateScore(seq1[i - 1], seq2[j - 1])) {
+            printf("%c", seq1[i - 1]);
+            i--;
+            j--;
+        }
+        else if (score == up + GAP_PENALTY) {
+            printf("-"); //
+            i--;
+        }
+        else {
+            printf("-");
+            j--;
+        }
+
+    }
+
+    //free
+    for (size_t i = 0; i < len1; ++i) {
+        free(dp[i]);
+    }
+
+    free(dp);
+
+
+}
+
+```
+
+**Entry module - main.c**
+
+```C
+
+/****************************************************************************
+* Filename: main.c
+* Original Author: Faith E. Olusegun (propenster)
+* File Creation Date: December 2nd, 2023
+* Description: Entry to SLAST Dynamic programming-based sequence alignment algorithm
+* LICENSE: MIT
+*************************************************************************************/
+
+
+#include <stdio.h>
+#include "slast.h"
+
+int main(int argc, char const* argv[])
+{
+    printf("Welcome to SLAST (Simple Local Alignment Search Tool in C\n");
+
+    char seq1[] = "ACTCCGAT";
+    char seq2[] = "GCTAAGAT";
+
+    printf("Sequence 1 to be aligned: %s\n", seq1);
+    printf("Sequence 1 to be aligned: %s\n", seq2);
+
+    printf("Alignment: \n");
+
+    simpleLocalAlignment(seq1, seq2);
+
+    return 0;
+}
+
+```
+
+
+So that is it, thank you for staying with me through this.
+
+Till next time,
+propenster
+
+
+
+
+
+
