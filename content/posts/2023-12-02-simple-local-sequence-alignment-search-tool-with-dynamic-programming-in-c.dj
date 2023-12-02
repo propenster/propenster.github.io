@@ -12,9 +12,9 @@ I developed a C program for local sequence alignment using dynamic programming t
 
 This program, called SLAST (Simple Local Alignment Search Tool), generates aligned sequences via dynamic programming. Keep in mind that this is just a simple implementation and does not include the sophisticated heuristics and optimizations of more sophisticated alignment tools like BLAST used in the bioinformatics and genomics community. A full BLAST implementation involves additional complexities such as seeding and extending, filtering, statistical analysis, and database searching.
 
-SLAST uses a dynamic programming 2-dimensional matrix that stores intermediate scores obtained during the computation of optimal alignments between two sequences. You can call it our scoring matrix.
+SLAST uses a dynamic programming 2-dimensional matrix that stores intermediate scores obtained during the computation of optimal alignments between two sequences. You can call it our scoring matrix. You can find the code on my github here - [https://github.com/propenster/slast](https://github.com/propenster/slast)
 
-See the code below: 
+See the code sections below: 
 
 **Header - slast.h**
 
