@@ -1,0 +1,71 @@
+# Writing an interpreter from scratch in C# - towards creating your own scripting language
+
+Since I started learning how to program with BASIC about 8 years ago, I have been fascinated by compilers, interpreters and how a source code gets turned into a program. You know my curiosity is piqued by how a source code gets converted into instructions for the computer and a lot of things that happen under the hood when I compile either my C# or Rust source files. You would not believe what I have learnt in just 1 year. 
+
+Let me take you back to where this new-found interest started, so about a year ago, I picked interested in parsers and compilers reading books like Thorsten Ball's interpreter book and going through a lot of comp sci texts on lexical analysis, compilation, parsing and AST's (abstract syntax trees). Honourable mention is San Jose University with some amazing online lecture materials on parsing (using scala and other languages).
+
+This knowledge culminated in me playing around with lexers, writing basic parsers for a database language in rust, a mini c compiler which I call [llcc94](https://github.com/propenster/llcc94). But now, I thought it's time I got on something serious to sum up the knowledge gained so far on parsing, interpretation and compilation and language design, I said to myself let's make some compiler or interpreter of some sort.
+
+Last week, I started working on a new scripting language and I decided to use C# to make it, note that this is like 2 weeks after I had done a youtube tutorial on [How to make a superfast JSON parser from scratch in C#](https://www.youtube.com/watch?v=mAYgIPCc1vs) see the video on my [YouTube channel](https://youtube.com/c/FaithOlusegun).
+
+## 3 basic components of an interpreter 
+
+To build an interpreter, there are three main components that are involved. They include:
+
+**1. The Lexer**
+**2. The Parser**
+**3. The Interpreter**
+
+Let's now explore each of these components and their respective roles in interpretation.
+
+### The Lexer
+
+The lexer is the first part of any compilation or interpretation unit, the lexer takes our input source text and converts them into a sequence of tokens.
+
+Our lexer class is implemented in C# and it takes a string of our source text and creates a sequence of Token object which is a record having two properties - a kind (an enum of TokenKind) and a literal (actual string of the token);
+
+Consider an example where we have a source like below 
+
+```
+1 + 2 * 3
+
+```
+
+Our lexer (provided whitespaces are ignored) breaks this input into tokens below 
+
+```
+1 => NumberToken
+
+\+ => PlusToken
+
+2 => NumberToken
+
+\* => StarToken or MultiplyToken
+
+3 => NumberToken
+
+```
+
+This is the only responsibility of the lexer and it's the first stage of interpretation or compiling.
+
+### The Parser
+
+The parser is fundamental in interpretation in that it takes the sequence of tokens generated or emitted by the lexer and produces an abstract syntax tree (AST) of a language. This is of course achieved by a specific set rules or grammar defined by the language specification.
+
+### The Interpreter
+
+In our case where we are making an interpreted programming language instead of a compiled one, we have the third component - an interpreter. An interpreter interpretes the AST produced by the parser on the fly without compilation. This means the huge tree of expressions emitted from the parser are each evaluated one after another.
+
+
+I hope to make a follow-up post diving deep into our C# implementation of this interpreted language called TopScript. I know, the name is cringe(ish) but come on, anything to sound like JavaScript or TypeScript nowadays, it's good for business. 
+
+You may find the implementation on my github [here](https://github.com/propenster/topscript)
+
+
+
+
+
+
+
+
+
