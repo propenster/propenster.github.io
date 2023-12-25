@@ -1,7 +1,11 @@
 # Writing an interpreter from scratch in C# - towards creating your own scripting language
 
 
-![feature_image](topScript.png)
+
+
+![functions in topscript](/assets/topScript.png)
+
+
 
 
 Since I started learning how to program with BASIC about 8 years ago, I have been fascinated by compilers, interpreters and how a source code gets turned into a program. You know my curiosity is piqued by how a source code gets converted into instructions for the computer and a lot of things that happen under the hood when I compile either my C# or Rust source files. You would not believe what I have learnt in just 1 year. 
