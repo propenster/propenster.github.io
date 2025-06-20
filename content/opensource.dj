@@ -1,115 +1,6 @@
-# Resume
+# Open-Source Contributions and Projects 
 
-I'm Faith Olusegun
-
-Welcome to my resume!
-
-It has two parts, my [Professional Experience](#Professional-Experience) and [Open-Source Contributions and Projects](#Open-Source-Contributions-and-Projects).
-
-The resume is available as [.html](/resume.html) and [.pdf](/resume.pdf).
-
-{.page-break}
-## Narrative
-
-I am a **Software Engineer** with a passion for building high-performance, scalable systems and modernizing legacy infrastructure. With expertise in **Java/Spring Boot, C#/.NET, Python and cloud technologies**, I thrive in fintech and bioinformatics, blending technical know-how with problem-solving skills.  
-
-By day, I optimize transaction systems and create secure APIs; by night, I contribute to open-source projects and geek out over Rust, LLMs, and compiler design.  
-
-Oh, and I love teaching! Check out my [YouTube channel](https://youtube.com/c/FaithOlusegun) for programming tutorials, or dive into my code on [GitHub](https://github.com/propenster).  
-
-*"Crafting scalable enterprise software solutions and turning legacy systems into lightning-fast solutions—one line of code at a time."*  
-
-
-
-{.page-break}
-## Contacts
-
-: Name  
-  Faith Olusegun  
-
-: Phone  
-  XXX-XXX-XXXX  
-
-: Email  
-  faitholusegun60@gmail.com  
-
-: LinkedIn  
-  [linkedin.com/in/faith-olusegun](https://linkedin.com/in/faith-olusegun)  
-
-: GitHub  
-  [github.com/propenster](https://github.com/propenster)  
-
-: YouTube
-  [youtube.com/c/FaithOlusegun](https://youtube.com/c/FaithOlusegun)
-
-## Core Competencies  
-- **Fintech Systems:** Modernized legacy platforms (40% cost reduction) and boosted transaction speeds by 25%.  
-- **Cloud & APIs:** Azure/IIS deployments with 99.9% uptime; OWASP Top 10 compliance (98%+ scores).  
-- **Mentorship:** Cut bug rates by 25-35% via secure coding training.  
-- **Languages:** C#, Java, Rust, Python, TypeScript.  
-
-## Education  
-* **Iowa State University**  
-  M.S. Bioinformatics & Computational Biology (GPA: 3.43/4.00)  
-* **Federal University of Technology Akure**  
-  B.Tech Animal Production & Health (GPA: 4.51/5.00)  
-
-## Professional Experience  
-
-### Interswitch Group  
-`Senior Software Engineer`  
-
-`Mar 2024 to Sept 2024`\
-<https://www.interswitchgroup.com>
-
-- Migrated Vert.x to Spring Boot and .NET 3.X/4.X to latest .NET, slashing maintenance costs by 40%.  
-- Designed fintech solutions that improved transaction processing speed by 25%.  
-- Built high-performance Java/Spring apps, increasing throughput by 30%.  
-
-### Asset and Resource Management (ARM) Holding Company  
-`Software Engineer`  
-
-`Mar 2023 to Mar 2024`\
-<https://www.arm.com.ng>
-
-- Re-engineered statement generation service (1,500% performance gain: 5 days → 6 hours for 500K+ clients).  
-- Built Agent94 monitoring tool, reducing downtime by 40% across 20+ APIs and 10+ DB servers.  
-- Mentored devs on secure coding, cutting bug rates by 25%.  
-
-### Parallex Bank Limited  
-`Software Engineer`  
-
-`Mar 2022 to Mar 2023`\
-<https://www.parallexbank.com>
-
-- Integrated core systems with NIBSS/CBN/Remita, boosting revenue by 30%.  
-- Achieved 100% OWASP Top 10 compliance for APIs, eliminating critical vulnerabilities.  
-
-### Fidelity Bank PLC  
-`Software Engineer`  
-
-`Jan 2020 to Oct 2021`\
-<https://www.fidelitybank.ng>
-
-- Scaled SME portal to 5M+ businesses, reducing onboarding time by 40% via Azure optimizations.  
-- Spearheaded Azure API Management (50+ policies), cutting latency by 35%.  
-
-### Sobel.io  
-`Rust Developer`  
-- Contributed to LLM projects (llm-chains, comparator-rs) and fine-tuned emotion-detection models.  
-
-## Projects  
-- **Paydirect International Auth Layer**: Java/Spring Boot, Azure Entra ID.  
-- **NgXQuickFix**: C#/.NET FIX client for Nigeria Stock Exchange.  
-- **Azure API Management Portal**: Configured 50+ policies for security/performance.  
-
-## Technical Skills  
-- *Languages:* C#, Java, Rust, Python, JavaScript/TypeScript  
-- *Cloud/DevOps:* Azure, AWS, Docker, Kubernetes, ArgoCD  
-- *Frameworks:* Spring Boot, .NET Core, React.js, Django  
-- *Concepts:* API Design, LLMs, Encryption, Agile, FIX Protocol  
-
-## Open-Source Contributions and Projects 
+Here are couple of my personal and open-source projects. A mix of tools I’ve built, libraries I maintain, and collaborations that fuel my passion for code.
 
 ### NgXQuickFix
 
@@ -123,11 +14,11 @@ NgXQuickFix is a C++/C# FIX engine integration project aimed at enabling direct,
 
 ### trade_sharpp
 
-*Overview:* **A complete suite of High-Frequency Trading setup with C++ backend, C# .NET 8 Frontend (ClientApp), RPC for Order Entry and MarketData FixEngine**
+*Overview:* **A complete suite of High-Frequency Trading (HFT) setup with C++ backend, C# .NET 8 Frontend (ClientApp), RPC for Order Entry and MarketData FixEngine**
 
-A complete suite of High-Frequency Trading (HFT) setup with C++ backend, C# .NET 8 Frontend (ClientApp), RPC for Order Entry and MarketData FixEngine\
+A complete suite of High-Frequency Trading setup with C++ backend, C# .NET 8 Frontend (ClientApp), RPC for Order Entry and MarketData FixEngine\
 
-*Tools:* C++ 14/17, XML, CMake, FIX Protocol, grpc, Protobuf, QuickFixN, C#, .NET 9, git. \
+*Tools:* C++ 14/17, XML, CMake, FIX Protocol, gRPC, Protobuf, QuickFixN, C#, .NET 9, git. \
 *Role:* Author and core maintainer \
 *Link:* <https://github.com/propenster/trade_sharpp>
 

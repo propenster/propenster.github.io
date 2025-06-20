@@ -87,6 +87,8 @@ export const base = (
       <a class="title" href="/">propenster</a>
       <a href="/about.html">About</a>
       <a href="/resume.html">Resume</a>
+      <a href="/opensource.html">Open Source</a>
+      <a href="/publications.html">Publications</a>
       <a href="https://youtube.com/c/FaithOlusegun">YouTube</a>
       <!--<a href="/links.html">Links</a>-->
     </nav>
@@ -157,9 +159,8 @@ export function post(post: Post, spellcheck: boolean): HtmlString {
     title: post.title,
     description: post.summary,
     path: post.path,
-    content: html`<article ${
-      spellcheck ? 'contentEditable="true"' : ""
-    }>\n${post.content}</article>`,
+    content: html`<article ${spellcheck ? 'contentEditable="true"' : ""
+      }>\n${post.content}</article>`,
   });
 }
 
