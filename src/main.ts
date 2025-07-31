@@ -119,7 +119,7 @@ async function build(params: {
     );
   }
 
-  const pages = ["about", "resume", "opensource", "publications", "links", "style"];
+  const pages = ["about", "resume", "portfolio", "opensource", "publications", "links", "style"];
   for (const page of pages) {
     const text = await Deno.readTextFile(`content/${page}.dj`);
     const ast = await djot.parse(text);
@@ -131,6 +131,7 @@ async function build(params: {
     "favicon.svg",
     "favicon.png",
     "resume.pdf",
+    "portfolio.pdf",
     "css/*",
     "assets/*",
     "assets/resilient-parsing/*",

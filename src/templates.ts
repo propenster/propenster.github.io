@@ -87,6 +87,7 @@ export const base = (
       <a class="title" href="/">propenster</a>
       <a href="/about.html">About</a>
       <a href="/resume.html">Resume</a>
+      <a href="/portfolio.html">Portfolio</a>
       <a href="/opensource.html">Open Source</a>
       <a href="/publications.html">Publications</a>
       <a href="https://youtube.com/c/FaithOlusegun">YouTube</a>

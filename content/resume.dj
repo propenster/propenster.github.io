@@ -50,49 +50,45 @@ Oh, and I love teaching! Check out my [YouTube channel](https://youtube.com/c/Fa
 
 ## Education  
 * **Iowa State University**  
-  M.S. Bioinformatics & Computational Biology (GPA: 3.43/4.00)  
+  M.S. Bioinformatics & Computational Biology 
 * **Federal University of Technology Akure**  
-  B.Tech Animal Production & Health (GPA: 4.51/5.00)  
+  B.Tech Animal Production & Health 
 
 ## Professional Experience  
 
 ### Interswitch Group  
 `Senior Software Engineer`  
 
-`Mar 2024 to Sept 2024`\
+`Dec 2023 to Aug 2024`\
 <https://www.interswitchgroup.com>
 
-- Migrated Vert.x to Spring Boot and .NET 3.X/4.X to latest .NET, slashing maintenance costs by 40%.  
-- Designed fintech solutions that improved transaction processing speed by 25%.  
-- Built high-performance Java/Spring apps, increasing throughput by 30%.  
+- Architected a high-throughput transaction processing engine using C++ and C#/.NET 8, handling over 5,000 TPS for a major payment gateway with 99.99% uptime.
+- Designed a reactive dashboard with React/TypeScript and SignalR for live monitoring of 10M+ daily transactions, reducing incident response time by 50%.  
+- Implemented a distributed caching layer with Redis and .NET Core to decrease database load by 40\%, enabling seamless scaling during peak traffic.
+- item Developed a cross-border authentication layer using OAuth2 and OpenID Connect (OIDC) with Java 17 and Spring Boot, supporting over 45 APIs for Interswitch's Paydirect International cross-border services.
+- Mentored 3 junior engineers on clean architecture (DDD) and performance profiling, improving team bug rate by 25%.
 
-### Asset and Resource Management (ARM) Holding Company  
-`Software Engineer`  
-
-`Mar 2023 to Mar 2024`\
-<https://www.arm.com.ng>
-
-- Re-engineered statement generation service (1,500% performance gain: 5 days → 6 hours for 500K+ clients).  
-- Built Agent94 monitoring tool, reducing downtime by 40% across 20+ APIs and 10+ DB servers.  
-- Mentored devs on secure coding, cutting bug rates by 25%.  
 
 ### Parallex Bank Limited  
 `Software Engineer`  
 
-`Mar 2022 to Mar 2023`\
+`Mar 2022 to Nov 2023`\
 <https://www.parallexbank.com>
 
-- Integrated core systems with NIBSS/CBN/Remita, boosting revenue by 30%.  
-- Achieved 100% OWASP Top 10 compliance for APIs, eliminating critical vulnerabilities.  
+- Led the development of the bank's high-volume Core Banking API (Finacle integration), serving over 500,000 customers using C#, OracleDB, and FIXML. 
+- Implemented a real-time document collaboration feature using Operational Transformation (OT) in React and TypeScript, supporting concurrent edits for 100+ users.
+- Automated KYC workflows by integrating Azure Form Recognizer and MongoDB, reducing manual verification time by 70%.
+- Refactored a legacy WPF application to Blazor WASM, enhancing maintainability and reducing UI-related support tickets by 40%.
 
 ### Fidelity Bank PLC  
 `Software Engineer`  
 
-`Jan 2020 to Oct 2021`\
+`Jan 2019 to Oct 2021`\
 <https://www.fidelitybank.ng>
 
-- Scaled SME portal to 5M+ businesses, reducing onboarding time by 40% via Azure optimizations.  
-- Spearheaded Azure API Management (50+ policies), cutting latency by 35%.  
+- Developed a customer-facing loan management portal using Angular and .NET Core, processing over $1M in monthly applications with API latency under 500ms.
+- Migrated monolithic .NET Framework APIs to .NET Core microservices, improving deployment frequency by 3x and reducing cloud costs by 35%. 
+- Introduced xUnit/NUnit testing for critical APIs, achieving over 85% code coverage and eliminating 90% of production regressions.
 
 ### Sobel.io  
 `Rust Developer`  
