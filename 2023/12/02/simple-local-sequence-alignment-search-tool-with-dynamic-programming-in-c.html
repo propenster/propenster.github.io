@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple local sequence alignment search tool with dynamic programming in C</title>
+  <meta name="description" content="Sequence alignment is fundamental to bioinformatics. In fact, one of the common tasks of a bioinformatician or an omics researcher is sequence alignemnt.">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://propenster.github.io/2023/12/02/simple-local-sequence-alignment-search-tool-with-dynamic-programming-in-c.html">
+  <link rel="alternate" type="application/rss+xml" title="propenster" href="https://propenster.github.io/feed.xml">
+  <style>
+  @font-face {
+    font-family: 'Open Sans'; src: url('/css/OpenSans-300-Normal.woff2') format('woff2');
+    font-weight: 300; font-style: normal;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono'; src: url('/css/JetBrainsMono-400-Normal.woff2') format('woff2');
+    font-weight: 400; font-style: normal;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono'; src: url('/css/JetBrainsMono-700-Normal.woff2') format('woff2');
+    font-weight: 700; font-style: normal;
+  }
+  @font-face {
+    font-family: 'EB Garamond'; src: url('/css/EBGaramond-400-Normal.woff2') format('woff2');
+    font-weight: 400; font-style: normal;
+  }
+  @font-face {
+    font-family: 'EB Garamond'; src: url('/css/EBGaramond-400-Italic.woff2') format('woff2');
+    font-weight: 400; font-style: italic;
+  }
+  @font-face {
+    font-family: 'EB Garamond'; src: url('/css/EBGaramond-700-Normal.woff2') format('woff2');
+    font-weight: 700; font-style: normal;
+  }
+  @font-face {
+    font-family: 'EB Garamond'; src: url('/css/EBGaramond-700-Italic.woff2') format('woff2');
+    font-weight: 700; font-style: italic;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; margin-block-start: 0; margin-block-end: 0; }
+
+  body {
+    max-width: 80ch;
+    padding: 2ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  header { margin-bottom: 2rem; }
+  header > nav { display: flex; column-gap: 2ch; align-items: baseline; flex-wrap: wrap; }
+  header a { font-style: normal; color: rgba(0, 0, 0, .8); text-decoration: none; }
+  header a:hover { color: rgba(0, 0, 0, .8); text-decoration: underline; }
+  header .title { font-size: 1.25em; flex-grow: 2; }
+
+  footer { margin-top: 2rem; }
+  footer > p { display: flex; column-gap: 2ch; justify-content: center; flex-wrap: wrap; }
+  footer a { color: rgba(0, 0, 0, .8); text-decoration: none; white-space: nowrap; }
+  footer i { vertical-align: middle; color: rgba(0, 0, 0, .8) }
+
+  </style>
+
+  <link rel="stylesheet" href="/css/main.css">
+  
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a class="title" href="/">propenster</a>
+      <a href="/about.html">About</a>
+      <a href="/resume.html">Resume</a>
+      <a href="/portfolio.html">Portfolio</a>
+      <a href="/opensource.html">Open Source</a>
+      <a href="/publications.html">Publications</a>
+      <a href="https://youtube.com/c/FaithOlusegun">YouTube</a>
+      <!--<a href="/links.html">Links</a>-->
+    </nav>
+  </header>
+
+  <main>
+  <article >
+
+    <h1>
+    <a href="#Simple-local-sequence-alignment-search-tool-with-dynamic-programming-in-C"><span>Simple local sequence alignment search tool with dynamic programming in C</span> <time datetime="2023-12-02">Dec 2, 2023</time></a>
+    </h1>
+<section id="Simple-Local-Sequence-Alignment-Search-Tool-SLAST">
+
+    <h3>
+    <a href="#Simple-Local-Sequence-Alignment-Search-Tool-SLAST"><span>Simple Local Sequence Alignment Search Tool (SLAST).</span> </a>
+    </h3>
+<p><span>Sequence alignment is fundamental to bioinformatics. In fact, one of the common tasks of a bioinformatician or an omics researcher is sequence alignemnt.</span></p>
+<p><span>Sequence alignment is used to identify similarities, homology, and functional relationships between proteins or genes in different organisms or species. By comparing sequences, we can infer evolutionary relationships and gain insights into the structure and function of biological molecules.</span></p>
+<p><span>During sequence alignment, the aim is to achieve the highest similarity score. Keep in mind that sequence alignment can have multiple correct solutions, and the outcome may vary based on the specific implementation and scoring parameters.</span></p>
+<p><span>I developed a C program for local sequence alignment using dynamic programming to find the optimal alignment.</span></p>
+<p><span>This program, called SLAST (Simple Local Alignment Search Tool), generates aligned sequences via dynamic programming. Keep in mind that this is just a simple implementation and does not include the sophisticated heuristics and optimizations of more sophisticated alignment tools like BLAST used in the bioinformatics and genomics community. A full BLAST implementation involves additional complexities such as seeding and extending, filtering, statistical analysis, and database searching.</span></p>
+<p><span>SLAST uses a dynamic programming 2-dimensional matrix that stores intermediate scores obtained during the computation of optimal alignments between two sequences. You can call it our scoring matrix. You can find the code on my github here - </span><a href="https://github.com/propenster/slast"><span>https://github.com/propenster/slast</span></a></p>
+<p><span>See the code sections below:</span></p>
+<p><strong><strong><span>Header - slast.h</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"></span>
+<span class="line"><span class="hl-comment">/****************************************************************************</span></span>
+<span class="line"><span class="hl-comment">* Filename: slast.h</span></span>
+<span class="line"><span class="hl-comment">* Original Author: Faith E. Olusegun (propenster)</span></span>
+<span class="line"><span class="hl-comment">* File Creation Date: December 2nd, 2023</span></span>
+<span class="line"><span class="hl-comment">* Description: SLAST functions, definitions  - header</span></span>
+<span class="line"><span class="hl-comment">* LICENSE: MIT</span></span>
+<span class="line"><span class="hl-comment">*************************************************************************************/</span></span>
+<span class="line"></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">pragma</span> once</span></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">ifndef</span> SLAST_H</span></span>
+<span class="line"></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">define</span> SLAST_H</span></span>
+<span class="line"></span>
+<span class="line"><span class="hl-comment">/// this could be customized</span></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">define</span> MATCH_SCORE 2</span></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">define</span> MISMATCH_SCORE -1</span></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">define</span> GAP_PENALTY -1</span></span>
+<span class="line"></span>
+<span class="line"><span class="hl-type">int</span> <span class="hl-title function_">max_of</span><span class="hl-params">(<span class="hl-type">int</span> a, <span class="hl-type">int</span> b, <span class="hl-type">int</span> c)</span>;</span>
+<span class="line"></span>
+<span class="line"><span class="hl-type">int</span> <span class="hl-title function_">calculateScore</span><span class="hl-params">(<span class="hl-type">char</span> a, <span class="hl-type">char</span> b)</span>;</span>
+<span class="line"><span class="hl-type">void</span> <span class="hl-title function_">simpleLocalAlignment</span><span class="hl-params">(<span class="hl-type">char</span>* seq1, <span class="hl-type">char</span>* seq2)</span>;</span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">endif</span> <span class="hl-comment">//SLAST_H#pragma once</span></span></span></code></pre>
+
+</figure>
+<p><strong><strong><span>Core SLAST Implementation - slast.c</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"><span class="hl-comment">/****************************************************************************</span></span>
+<span class="line"><span class="hl-comment">* Filename: slast.c</span></span>
+<span class="line"><span class="hl-comment">* Original Author: Faith E. Olusegun (propenster)</span></span>
+<span class="line"><span class="hl-comment">* File Creation Date: December 2nd, 2023</span></span>
+<span class="line"><span class="hl-comment">* Description: SLAST functions, definitions and implementation details</span></span>
+<span class="line"><span class="hl-comment">* LICENSE: MIT</span></span>
+<span class="line"><span class="hl-comment">*************************************************************************************/</span></span>
+<span class="line"></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">include</span> <span class="hl-string">&lt;stdio.h&gt;</span></span></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">include</span> <span class="hl-string">&lt;stdlib.h&gt;</span></span></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">include</span> <span class="hl-string">&lt;string.h&gt;</span></span></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">include</span> <span class="hl-string">&quot;slast.h&quot;</span></span></span>
+<span class="line"></span>
+<span class="line"><span class="hl-comment">/// @brief </span></span>
+<span class="line"><span class="hl-comment">/// @param a - </span></span>
+<span class="line"><span class="hl-comment">/// @param b </span></span>
+<span class="line"><span class="hl-comment">/// @param c </span></span>
+<span class="line"><span class="hl-comment">/// @return </span></span>
+<span class="line"><span class="hl-comment">///</span></span>
+<span class="line"><span class="hl-type">int</span> <span class="hl-title function_">max_of</span><span class="hl-params">(<span class="hl-type">int</span> a, <span class="hl-type">int</span> b, <span class="hl-type">int</span> c)</span> {</span>
+<span class="line">    <span class="hl-type">int</span> max_of_ab = (a &gt; b) ? a : b;</span>
+<span class="line">    <span class="hl-keyword">return</span> (max_of_ab &gt; c) ? max_of_ab : c;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line"><span class="hl-comment">/// @brief calculates match/alignment Score</span></span>
+<span class="line"><span class="hl-comment">/// @param a first nucleotide (a) to be compared to another (b)</span></span>
+<span class="line"><span class="hl-comment">/// @param b second nucleotide (b) to be compared with a</span></span>
+<span class="line"><span class="hl-comment">/// @return match or mismatch score</span></span>
+<span class="line"><span class="hl-type">int</span> <span class="hl-title function_">calculateScore</span><span class="hl-params">(<span class="hl-type">char</span> a, <span class="hl-type">char</span> b)</span> {</span>
+<span class="line">    <span class="hl-keyword">return</span> (a == b) ? MATCH_SCORE : MISMATCH_SCORE;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line"><span class="hl-comment">/// @brief performs the local alignment</span></span>
+<span class="line"><span class="hl-comment">/// @param seq1 sequence 1</span></span>
+<span class="line"><span class="hl-comment">/// @param seq2 sequence 2 or reference sequence</span></span>
+<span class="line"><span class="hl-type">void</span> <span class="hl-title function_">simpleLocalAlignment</span><span class="hl-params">(<span class="hl-type">char</span>* seq1, <span class="hl-type">char</span>* seq2)</span> {</span>
+<span class="line">    <span class="hl-type">size_t</span> len1 = <span class="hl-built_in">strlen</span>(seq1);</span>
+<span class="line">    <span class="hl-type">size_t</span> len2 = <span class="hl-built_in">strlen</span>(seq2);</span>
+<span class="line">    <span class="hl-comment">//create our dp matrix and allocate memory for it...</span></span>
+<span class="line">    <span class="hl-comment">//we will use it to store scores as we compute</span></span>
+<span class="line">    <span class="hl-type">int</span>** dp = (<span class="hl-type">int</span>**)<span class="hl-built_in">malloc</span>((len1 + <span class="hl-number">1</span>) * <span class="hl-keyword">sizeof</span>(<span class="hl-type">int</span>*));</span>
+<span class="line">    <span class="hl-keyword">for</span> (<span class="hl-type">size_t</span> i = <span class="hl-number">0</span>; i &lt; len1; ++i) {</span>
+<span class="line">        dp[i] = (<span class="hl-type">int</span>*)<span class="hl-built_in">malloc</span>((len2 + <span class="hl-number">1</span>) * <span class="hl-keyword">sizeof</span>(<span class="hl-type">int</span>));</span>
+<span class="line">    }</span>
+<span class="line"></span>
+<span class="line">    <span class="hl-type">int</span> maxScore = <span class="hl-number">0</span>;</span>
+<span class="line">    <span class="hl-type">int</span> endRow, endCol = <span class="hl-number">0</span>;</span>
+<span class="line"></span>
+<span class="line">    <span class="hl-comment">//init alignment matrix</span></span>
+<span class="line">    <span class="hl-keyword">for</span> (<span class="hl-type">size_t</span> row = <span class="hl-number">0</span>; row &lt; len1; ++row) {</span>
+<span class="line">        <span class="hl-keyword">for</span> (<span class="hl-type">size_t</span> col = <span class="hl-number">0</span>; col &lt; len2; ++col) {</span>
+<span class="line">            <span class="hl-keyword">if</span> (row == <span class="hl-number">0</span> || col == <span class="hl-number">0</span>) {</span>
+<span class="line">                </span>
+<span class="line">                <span class="hl-keyword">if</span> (row &lt;= len1 &amp;&amp; col &lt;= len2) {</span>
+<span class="line">                    dp[row][col] = <span class="hl-number">0</span>;</span>
+<span class="line">                }</span>
+<span class="line">                <span class="hl-keyword">else</span> {</span>
+<span class="line">                    <span class="hl-keyword">return</span> <span class="hl-number">1</span>;</span>
+<span class="line">                }</span>
+<span class="line">            }</span>
+<span class="line">            <span class="hl-keyword">else</span> {</span>
+<span class="line">                <span class="hl-type">int</span> match = dp[row - <span class="hl-number">1</span>][col - <span class="hl-number">1</span>] + calculateScore(seq1[row - <span class="hl-number">1</span>], seq2[col - <span class="hl-number">1</span>]);</span>
+<span class="line">                <span class="hl-type">int</span> delete = dp[row - <span class="hl-number">1</span>][col] + GAP_PENALTY;</span>
+<span class="line">                <span class="hl-type">int</span> insert = dp[row][col - <span class="hl-number">1</span>] + GAP_PENALTY;</span>
+<span class="line">                dp[row][col] = max(match, delete, insert);</span>
+<span class="line"></span>
+<span class="line">                <span class="hl-keyword">if</span> (dp[row][col] &gt; maxScore) {</span>
+<span class="line">                    maxScore = dp[row][col];</span>
+<span class="line">                    endRow = row;</span>
+<span class="line">                    endCol = col;</span>
+<span class="line">                }</span>
+<span class="line">            }</span>
+<span class="line">        }</span>
+<span class="line">    }</span>
+<span class="line"></span>
+<span class="line">    <span class="hl-comment">//find &amp;&amp; print new alignment</span></span>
+<span class="line">    <span class="hl-type">int</span> i = endRow;</span>
+<span class="line">    <span class="hl-type">int</span> j = endCol;</span>
+<span class="line">    <span class="hl-keyword">while</span> (i &gt; <span class="hl-number">0</span> &amp;&amp; j &gt; <span class="hl-number">0</span> &amp;&amp; dp[i][j] != <span class="hl-number">0</span>) {</span>
+<span class="line">        <span class="hl-type">int</span> score = dp[i][j];</span>
+<span class="line">        <span class="hl-type">int</span> diagonal = dp[i - <span class="hl-number">1</span>][j - <span class="hl-number">1</span>];</span>
+<span class="line">        <span class="hl-type">int</span> left = dp[i][j - <span class="hl-number">1</span>];</span>
+<span class="line">        <span class="hl-type">int</span> up = dp[i - <span class="hl-number">1</span>][j];</span>
+<span class="line"></span>
+<span class="line">        <span class="hl-keyword">if</span> (score == diagonal + calculateScore(seq1[i - <span class="hl-number">1</span>], seq2[j - <span class="hl-number">1</span>])) {</span>
+<span class="line">            <span class="hl-built_in">printf</span>(<span class="hl-string">&quot;%c&quot;</span>, seq1[i - <span class="hl-number">1</span>]);</span>
+<span class="line">            i--;</span>
+<span class="line">            j--;</span>
+<span class="line">        }</span>
+<span class="line">        <span class="hl-keyword">else</span> <span class="hl-keyword">if</span> (score == up + GAP_PENALTY) {</span>
+<span class="line">            <span class="hl-built_in">printf</span>(<span class="hl-string">&quot;-&quot;</span>); <span class="hl-comment">//</span></span>
+<span class="line">            i--;</span>
+<span class="line">        }</span>
+<span class="line">        <span class="hl-keyword">else</span> {</span>
+<span class="line">            <span class="hl-built_in">printf</span>(<span class="hl-string">&quot;-&quot;</span>);</span>
+<span class="line">            j--;</span>
+<span class="line">        }</span>
+<span class="line"></span>
+<span class="line">    }</span>
+<span class="line"></span>
+<span class="line">    <span class="hl-comment">//free</span></span>
+<span class="line">    <span class="hl-keyword">for</span> (<span class="hl-type">size_t</span> i = <span class="hl-number">0</span>; i &lt; len1; ++i) {</span>
+<span class="line">        <span class="hl-built_in">free</span>(dp[i]);</span>
+<span class="line">    }</span>
+<span class="line"></span>
+<span class="line">    <span class="hl-built_in">free</span>(dp);</span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line">}</span></code></pre>
+
+</figure>
+<p><strong><strong><span>Entry module - main.c</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"></span>
+<span class="line"><span class="hl-comment">/****************************************************************************</span></span>
+<span class="line"><span class="hl-comment">* Filename: main.c</span></span>
+<span class="line"><span class="hl-comment">* Original Author: Faith E. Olusegun (propenster)</span></span>
+<span class="line"><span class="hl-comment">* File Creation Date: December 2nd, 2023</span></span>
+<span class="line"><span class="hl-comment">* Description: Entry to SLAST Dynamic programming-based sequence alignment algorithm</span></span>
+<span class="line"><span class="hl-comment">* LICENSE: MIT</span></span>
+<span class="line"><span class="hl-comment">*************************************************************************************/</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">include</span> <span class="hl-string">&lt;stdio.h&gt;</span></span></span>
+<span class="line"><span class="hl-meta">#<span class="hl-keyword">include</span> <span class="hl-string">&quot;slast.h&quot;</span></span></span>
+<span class="line"></span>
+<span class="line"><span class="hl-type">int</span> <span class="hl-title function_">main</span><span class="hl-params">(<span class="hl-type">int</span> argc, <span class="hl-type">char</span> <span class="hl-type">const</span>* argv[])</span></span>
+<span class="line">{</span>
+<span class="line">    <span class="hl-built_in">printf</span>(<span class="hl-string">&quot;Welcome to SLAST (Simple Local Alignment Search Tool in C\n&quot;</span>);</span>
+<span class="line"></span>
+<span class="line">    <span class="hl-type">char</span> seq1[] = <span class="hl-string">&quot;ACTCCGAT&quot;</span>;</span>
+<span class="line">    <span class="hl-type">char</span> seq2[] = <span class="hl-string">&quot;GCTAAGAT&quot;</span>;</span>
+<span class="line"></span>
+<span class="line">    <span class="hl-built_in">printf</span>(<span class="hl-string">&quot;Sequence 1 to be aligned: %s\n&quot;</span>, seq1);</span>
+<span class="line">    <span class="hl-built_in">printf</span>(<span class="hl-string">&quot;Sequence 1 to be aligned: %s\n&quot;</span>, seq2);</span>
+<span class="line"></span>
+<span class="line">    <span class="hl-built_in">printf</span>(<span class="hl-string">&quot;Alignment: \n&quot;</span>);</span>
+<span class="line"></span>
+<span class="line">    simpleLocalAlignment(seq1, seq2);</span>
+<span class="line"></span>
+<span class="line">    <span class="hl-keyword">return</span> <span class="hl-number">0</span>;</span>
+<span class="line">}</span></code></pre>
+
+</figure>
+<p><span>So that is it, thank you for staying with me through this.</span></p>
+<p><span>Till next time,</span>
+<span>propenster</span></p>
+</section>
+</article>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      <a href="https://github.com/propenster/propenster.github.io/edit/master/content/posts/2023-12-02-simple-local-sequence-alignment-search-tool-with-dynamic-programming-in-c.dj">
+        <svg class="icon"><use href="/assets/icons.svg#edit"/></svg>
+        Fix typo
+      </a>
+      <a href="/feed.xml">
+        <svg class="icon"><use href="/assets/icons.svg#rss"/></svg>
+        Subscribe
+      </a>
+      <a href="mailto:faitholusegun60@gmail.com">
+        <svg class="icon"><use href="/assets/icons.svg#email"/></svg>
+        Get in touch
+      </a>
+      <a href="https://github.com/propenster">
+        <svg class="icon"><use href="/assets/icons.svg#github"/></svg>
+        propenster
+      </a>
+    </p>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Power Enums Option type but for csharp</title>
+  <meta name="description" content="Let's talk about PowerEnums. A new C# library that I started cooking yesterday.">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://propenster.github.io/2023/11/22/power-enums-option-type-but-for-csharp.html">
+  <link rel="alternate" type="application/rss+xml" title="propenster" href="https://propenster.github.io/feed.xml">
+  <style>
+  @font-face {
+    font-family: 'Open Sans'; src: url('/css/OpenSans-300-Normal.woff2') format('woff2');
+    font-weight: 300; font-style: normal;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono'; src: url('/css/JetBrainsMono-400-Normal.woff2') format('woff2');
+    font-weight: 400; font-style: normal;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono'; src: url('/css/JetBrainsMono-700-Normal.woff2') format('woff2');
+    font-weight: 700; font-style: normal;
+  }
+  @font-face {
+    font-family: 'EB Garamond'; src: url('/css/EBGaramond-400-Normal.woff2') format('woff2');
+    font-weight: 400; font-style: normal;
+  }
+  @font-face {
+    font-family: 'EB Garamond'; src: url('/css/EBGaramond-400-Italic.woff2') format('woff2');
+    font-weight: 400; font-style: italic;
+  }
+  @font-face {
+    font-family: 'EB Garamond'; src: url('/css/EBGaramond-700-Normal.woff2') format('woff2');
+    font-weight: 700; font-style: normal;
+  }
+  @font-face {
+    font-family: 'EB Garamond'; src: url('/css/EBGaramond-700-Italic.woff2') format('woff2');
+    font-weight: 700; font-style: italic;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; margin-block-start: 0; margin-block-end: 0; }
+
+  body {
+    max-width: 80ch;
+    padding: 2ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  header { margin-bottom: 2rem; }
+  header > nav { display: flex; column-gap: 2ch; align-items: baseline; flex-wrap: wrap; }
+  header a { font-style: normal; color: rgba(0, 0, 0, .8); text-decoration: none; }
+  header a:hover { color: rgba(0, 0, 0, .8); text-decoration: underline; }
+  header .title { font-size: 1.25em; flex-grow: 2; }
+
+  footer { margin-top: 2rem; }
+  footer > p { display: flex; column-gap: 2ch; justify-content: center; flex-wrap: wrap; }
+  footer a { color: rgba(0, 0, 0, .8); text-decoration: none; white-space: nowrap; }
+  footer i { vertical-align: middle; color: rgba(0, 0, 0, .8) }
+
+  </style>
+
+  <link rel="stylesheet" href="/css/main.css">
+  
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a class="title" href="/">propenster</a>
+      <a href="/about.html">About</a>
+      <a href="/resume.html">Resume</a>
+      <a href="/portfolio.html">Portfolio</a>
+      <a href="/opensource.html">Open Source</a>
+      <a href="/publications.html">Publications</a>
+      <a href="https://youtube.com/c/FaithOlusegun">YouTube</a>
+      <!--<a href="/links.html">Links</a>-->
+    </nav>
+  </header>
+
+  <main>
+  <article >
+
+    <h1>
+    <a href="#Power-Enums-Option-type-but-for-csharp"><span>Power Enums Option type but for csharp</span> <time datetime="2023-11-22">Nov 22, 2023</time></a>
+    </h1>
+<p><span>Let</span>&rsquo;<span>s talk about </span><a href="https://github.com/propenster/powerenums"><span>PowerEnums</span></a><span>. A new C# library that I started cooking yesterday.</span></p>
+<p><span>It</span>&rsquo;<span>s been over a year since I started writing Rust and I found it an intriguing language. Besides the promises of top-notch performance and fearless concurrency, I also found rust to be an easy-to-learn systems language for me. This is coming from me who had a bit of flirt with C while in the university.</span></p>
+<p><span>One of rust</span>&rsquo;<span>s main selling point for me is how clear and easy the type system is. You have a straightforward type system, generics, pattern matching (which I love so much) and traits. All of these I was able to learn in a bit of time and the ease at which I was able to pick up rust was surprising to me. </span>
+<span>Rust for me is just like python but with extra invincibility of systems languages like C and C++. It</span>&rsquo;<span>s almost as powerful (if not as powerful) as C and C++ and it has plain old english-like syntax like python. Oh and rust</span>&rsquo;<span>s getting into both the windows and linux kernel already which is a W for me.</span></p>
+<p><span>Now to the main theme of this article, Option enum type in rust is an enum type in the rust standard library that gives us the idea of optional values. That is, value types can be seen in a basis of whether they are present or absent - present as in Some(T) or absent as in None. </span>
+<span>This is in fact rust</span>&rsquo;<span>s intuitive way of prevent Null-Reference exceptions and allied problems in contrast to C# which I have been used to and written for over 7 years already. This means that Option in C# would make us have less of </span>&lsquo;<span>ObjectReferenceException: Object Reference Not Set to An Instance of an Object</span>&rsquo;<span> - every C# developer has probably seen this countless number of times.</span></p>
+<p><span>In Rust, an Option&lt;T&gt; defines an optional type in which the enclosed generic type could be any data type from primitives to reference types. The Option&lt;T&gt; type in rust could be matched with pattern machine to create more elegant control flow. </span>
+<span>It can be combined with other constructs like If-Let, Match and While let all of which allow for destructuring of the optional into Some(T).</span></p>
+<p><span>See below:</span></p>
+<p><strong><strong><span>With match expression</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"><span class="hl-comment">// Make `optional` of type `Option&lt;i32&gt;`</span></span>
+<span class="line"><span class="hl-keyword">let</span> <span class="hl-variable">optional</span> = <span class="hl-title function_ invoke__">Some</span>(<span class="hl-number">7</span>);</span>
+<span class="line"></span>
+<span class="line"><span class="hl-keyword">match</span> optional {</span>
+<span class="line">    <span class="hl-title function_ invoke__">Some</span>(i) =&gt; { <span class="hl-comment">//see the declare 7 i32 destructed into i</span></span>
+<span class="line">        <span class="hl-built_in">println!</span>(<span class="hl-string">&quot;This is a really long string and `{:?}`&quot;</span>, i);</span>
+<span class="line">    },</span>
+<span class="line">    _ =&gt; {},</span>
+<span class="line">};</span></code></pre>
+
+</figure>
+<p><strong><strong><span>With if-let</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"><span class="hl-keyword">let</span> <span class="hl-variable">number</span> = <span class="hl-title function_ invoke__">Some</span>(<span class="hl-number">7</span>);</span>
+<span class="line"></span>
+<span class="line"><span class="hl-comment">// The `if let` construct reads: &quot;if `let` destructures `number` into</span></span>
+<span class="line"><span class="hl-comment">// `Some(i)`, evaluate the block (`{}`).</span></span>
+<span class="line"><span class="hl-keyword">if</span> <span class="hl-keyword">let</span> <span class="hl-variable">Some</span>(i) = number {</span>
+<span class="line">    <span class="hl-built_in">println!</span>(<span class="hl-string">&quot;Matched {:?}!&quot;</span>, i);</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line"><span class="hl-comment">//or</span></span>
+<span class="line"><span class="hl-keyword">if</span> <span class="hl-keyword">let</span> <span class="hl-variable">Some</span>(i) = number{</span>
+<span class="line">    <span class="hl-built_in">println!</span>(<span class="hl-string">&quot;Retrieved destructured number i32 successfully!&quot;</span>);</span>
+<span class="line">}<span class="hl-keyword">else</span>{</span>
+<span class="line">    <span class="hl-built_in">println!</span>(<span class="hl-string">&quot;number destructure failed. number is not present&quot;</span>);</span>
+<span class="line">}</span></code></pre>
+
+</figure>
+<p><strong><strong><span>With while-let</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"><span class="hl-comment">// Make `optional` of type `Option&lt;i32&gt;`</span></span>
+<span class="line"><span class="hl-keyword">let</span> <span class="hl-keyword">mut </span><span class="hl-variable">optional</span> = <span class="hl-title function_ invoke__">Some</span>(<span class="hl-number">0</span>);</span>
+<span class="line"></span>
+<span class="line"><span class="hl-comment">// This reads: &quot;while `let` destructures `optional` into</span></span>
+<span class="line"><span class="hl-comment">// `Some(i)`, evaluate the block (`{}`). Else `break`.</span></span>
+<span class="line"><span class="hl-keyword">while</span> <span class="hl-keyword">let</span> <span class="hl-variable">Some</span>(i) = optional {</span>
+<span class="line">    <span class="hl-keyword">if</span> i &gt; <span class="hl-number">9</span> {</span>
+<span class="line">        <span class="hl-built_in">println!</span>(<span class="hl-string">&quot;Greater than 9, quit!&quot;</span>);</span>
+<span class="line">        optional = <span class="hl-literal">None</span>;</span>
+<span class="line">    } <span class="hl-keyword">else</span> {</span>
+<span class="line">        <span class="hl-built_in">println!</span>(<span class="hl-string">&quot;`i` is `{:?}`. Try again.&quot;</span>, i);</span>
+<span class="line">        optional = <span class="hl-title function_ invoke__">Some</span>(i + <span class="hl-number">1</span>);</span>
+<span class="line">    }</span>
+<span class="line">}</span></code></pre>
+
+</figure>
+<section id="C-implementation">
+
+    <h3>
+    <a href="#C-implementation"><span>C# implementation</span> </a>
+    </h3>
+<p><span>The C# implementation that I</span>&rsquo;<span>ve just made is quite similar, we have an Option&lt;T&gt; type which can enclose the value of interest into either of a Some(T) or None(T).</span>
+<span>I call it PowerEnums and it</span>&rsquo;<span>s already published to nuget.org as a .NET C# library.</span></p>
+<p><span>See the code references below:</span></p>
+<p><strong><strong><span>Simple Option - Some&lt;T&gt;</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"><span class="hl-built_in">int</span> <span class="hl-keyword">value</span> = <span class="hl-number">50</span>;</span>
+<span class="line"><span class="hl-keyword">var</span> option = <span class="hl-keyword">new</span> Some&lt;<span class="hl-built_in">int</span>&gt;(<span class="hl-keyword">value</span>);</span>
+<span class="line">Console.WriteLine(option?.ValueOrDefault());</span>
+<span class="line"></span>
+<span class="line">Assert.Equal(<span class="hl-keyword">value</span>, option?.ValueOrDefault());</span>
+<span class="line">Assert.NotNull(option);</span>
+<span class="line">Assert.IsType&lt;Some&lt;<span class="hl-built_in">int</span>&gt;&gt;(option);</span>
+<span class="line">Assert.IsType&lt;<span class="hl-built_in">int</span>&gt;(option?.ValueOrDefault());</span></code></pre>
+
+</figure>
+<p><strong><strong><span>Simple Option - None&lt;T&gt;</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"><span class="hl-keyword">var</span> noneReturningOption = <span class="hl-keyword">new</span> None&lt;<span class="hl-built_in">int</span>&gt;();</span>
+<span class="line">Assert.NotNull(noneReturningOption);</span>
+<span class="line">Assert.Equal(<span class="hl-number">0</span>, noneReturningOption?.ValueOrDefault());</span>
+<span class="line">Assert.Equal(<span class="hl-number">0</span>, noneReturningOption?.Value);</span>
+<span class="line">Assert.Equal(<span class="hl-literal">false</span>, noneReturningOption?.IsSome());</span>
+<span class="line">Assert.Equal(<span class="hl-literal">true</span>, noneReturningOption?.IsNone());</span>
+<span class="line">Assert.IsType&lt;None&lt;<span class="hl-built_in">int</span>&gt;&gt;(noneReturningOption);</span>
+<span class="line"><span class="hl-comment">//it doesn&#x27;t lose it&#x27;s enclosed primitive type though it still came as None</span></span>
+<span class="line">Assert.IsType&lt;<span class="hl-built_in">int</span>&gt;(noneReturningOption?.ValueOrDefault()); </span>
+<span class="line">Assert.IsAssignableFrom&lt;<span class="hl-built_in">int</span>&gt;(noneReturningOption?.ValueOrDefault());</span></code></pre>
+
+</figure>
+<p><strong><strong><span>Option-returning methods Option&lt;T&gt;</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"><span class="hl-function"><span class="hl-keyword">private</span> <span class="hl-keyword">static</span> Option&lt;<span class="hl-built_in">decimal</span>&gt; <span class="hl-title">DecimalReturningOptionMethod</span>()</span></span>
+<span class="line">{</span>
+<span class="line"><span class="hl-built_in">decimal</span> d = <span class="hl-built_in">decimal</span>.MaxValue;</span>
+<span class="line"><span class="hl-keyword">return</span> <span class="hl-keyword">new</span> Some&lt;<span class="hl-built_in">decimal</span>&gt;(d);</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line"><span class="hl-function"><span class="hl-keyword">private</span> Option&lt;Person&gt; <span class="hl-title">GetPerson_Some_Or_None</span>()</span></span>
+<span class="line">{</span>
+<span class="line"><span class="hl-keyword">var</span> person = <span class="hl-keyword">new</span> Person { Name = <span class="hl-string">&quot;Willelm Rudenmalm&quot;</span>, Age = <span class="hl-number">28</span> };</span>
+<span class="line"><span class="hl-keyword">return</span> <span class="hl-keyword">new</span> Some&lt;Person&gt;(person) ?? <span class="hl-keyword">new</span> None&lt;Person&gt;();</span>
+<span class="line">}</span></code></pre>
+
+</figure>
+<p><strong><strong><span>Option&lt;T&gt;().ValueOrError() with error message</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"><span class="hl-keyword">var</span> option = <span class="hl-keyword">new</span> None&lt;<span class="hl-built_in">int</span>&gt;();</span>
+<span class="line">Assert.Throws&lt;Exception&gt;(() =&gt; option.ValueOrError(<span class="hl-string">&quot;Error could not retrieve item , item is null or default&quot;</span>));</span></code></pre>
+
+</figure>
+<p><strong><strong><span>Option&lt;T&gt;().ValueOrError() with error callback</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"><span class="hl-keyword">var</span> option = <span class="hl-keyword">new</span> None&lt;<span class="hl-built_in">int</span>&gt;();</span>
+<span class="line">Assert.Throws&lt;MyCustomException&gt;(() =&gt; option.ValueOrError(() =&gt; <span class="hl-keyword">throw</span> <span class="hl-keyword">new</span> MyCustomException(<span class="hl-string">&quot;Error could not find item&quot;</span>)));</span></code></pre>
+
+</figure>
+<p><strong><strong><span>Check IsSome() or IsNone()</span></strong></strong></p>
+
+<figure class="code-block">
+
+
+<pre><code><span class="line"><span class="hl-keyword">var</span> option = <span class="hl-keyword">new</span> Some&lt;<span class="hl-built_in">double</span>&gt;(<span class="hl-number">2.58</span>);</span>
+<span class="line"><span class="hl-keyword">if</span>(option.IsSome()){</span>
+<span class="line">Console.WriteLine(<span class="hl-string">$&quot;Option is Some and it&#x27;s value is <span class="hl-subst">{option.ValueOrDefault()}</span>&quot;</span>);</span>
+<span class="line"><span class="hl-comment">//OR destroy everything.</span></span>
+<span class="line"><span class="hl-comment">//without saying, this throws a bomb (an Exception) if option is None&lt;T&gt;</span></span>
+<span class="line"><span class="hl-keyword">var</span> valueOrMakeAMess = option.ValueOrError(<span class="hl-string">&quot;This double is supposed to be here now I&#x27;m going to have to throw an exception&quot;</span>); </span>
+<span class="line"><span class="hl-comment">//OR pass an Exception callback with your own customer Exception</span></span>
+<span class="line"><span class="hl-comment">//without saying, this throws a bomb (a YourMessyCustomException) if option is None&lt;T&gt;</span></span>
+<span class="line"><span class="hl-keyword">var</span> valueOrMakeAMess = option.ValueOrError(() =&gt; <span class="hl-keyword">throw</span> <span class="hl-keyword">new</span> YourMessyCustomException(<span class="hl-string">&quot;You must never not have this double&quot;</span>)); </span>
+<span class="line">}<span class="hl-keyword">else</span>{</span>
+<span class="line">Console.WriteLine(<span class="hl-string">&quot;Option is None&quot;</span>);</span>
+<span class="line">}</span></code></pre>
+
+</figure>
+</section>
+</article>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      <a href="https://github.com/propenster/propenster.github.io/edit/master/content/posts/2023-11-22-power-enums-option-type-but-for-csharp.dj">
+        <svg class="icon"><use href="/assets/icons.svg#edit"/></svg>
+        Fix typo
+      </a>
+      <a href="/feed.xml">
+        <svg class="icon"><use href="/assets/icons.svg#rss"/></svg>
+        Subscribe
+      </a>
+      <a href="mailto:faitholusegun60@gmail.com">
+        <svg class="icon"><use href="/assets/icons.svg#email"/></svg>
+        Get in touch
+      </a>
+      <a href="https://github.com/propenster">
+        <svg class="icon"><use href="/assets/icons.svg#github"/></svg>
+        propenster
+      </a>
+    </p>
+  </footer>
+</body>
+
+</html>
